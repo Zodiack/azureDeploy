@@ -1,0 +1,246 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "sites_securedevopstest_name": {
+            "defaultValue": "securedevopstest",
+            "type": "String"
+        },
+        "serverfarms_ASP_securecicddeploytest_8187_externalid": {
+            "defaultValue": "/subscriptions/3287673a-55e5-4ad9-b710-99b355ee2725/resourceGroups/securecicddeploytest/providers/Microsoft.Web/serverfarms/ASP-securecicddeploytest-8187",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2018-11-01",
+            "name": "[parameters('sites_securedevopstest_name')]",
+            "location": "Central US",
+            "tags": {
+                "primaryResourceId": "/subscriptions/3287673a-55e5-4ad9-b710-99b355ee2725/resourcegroups/securecicddeploytest/providers/Microsoft.Web/sites/securedevopstest"
+            },
+            "kind": "app,linux",
+            "properties": {
+                "enabled": true,
+                "hostNameSslStates": [
+                    {
+                        "name": "[concat(parameters('sites_securedevopstest_name'), '.azurewebsites.net')]",
+                        "sslState": "Disabled",
+                        "hostType": "Standard"
+                    },
+                    {
+                        "name": "[concat(parameters('sites_securedevopstest_name'), '.scm.azurewebsites.net')]",
+                        "sslState": "Disabled",
+                        "hostType": "Repository"
+                    }
+                ],
+                "serverFarmId": "[parameters('serverfarms_ASP_securecicddeploytest_8187_externalid')]",
+                "reserved": true,
+                "isXenon": false,
+                "hyperV": false,
+                "scmSiteAlsoStopped": false,
+                "clientAffinityEnabled": false,
+                "clientCertEnabled": false,
+                "hostNamesDisabled": false,
+                "containerSize": 0,
+                "dailyMemoryTimeQuota": 0,
+                "httpsOnly": true,
+                "redundancyMode": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/config",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_securedevopstest_name'), '/web')]",
+            "location": "Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_securedevopstest_name'))]"
+            ],
+            "tags": {
+                "primaryResourceId": "/subscriptions/3287673a-55e5-4ad9-b710-99b355ee2725/resourcegroups/securecicddeploytest/providers/Microsoft.Web/sites/securedevopstest"
+            },
+            "properties": {
+                "numberOfWorkers": 1,
+                "defaultDocuments": [
+                    "Default.htm",
+                    "Default.html",
+                    "Default.asp",
+                    "index.htm",
+                    "index.html",
+                    "iisstart.htm",
+                    "default.aspx",
+                    "index.php",
+                    "hostingstart.html"
+                ],
+                "netFrameworkVersion": "v4.0",
+                "linuxFxVersion": "PHP|7.3",
+                "requestTracingEnabled": false,
+                "remoteDebuggingEnabled": false,
+                "remoteDebuggingVersion": "VS2019",
+                "httpLoggingEnabled": false,
+                "logsDirectorySizeLimit": 35,
+                "detailedErrorLoggingEnabled": false,
+                "publishingUsername": "$securedevopstest",
+                "scmType": "GitHub",
+                "use32BitWorkerProcess": true,
+                "webSocketsEnabled": false,
+                "alwaysOn": false,
+                "managedPipelineMode": "Integrated",
+                "virtualApplications": [
+                    {
+                        "virtualPath": "/",
+                        "physicalPath": "site\\wwwroot",
+                        "preloadEnabled": false
+                    }
+                ],
+                "loadBalancing": "LeastRequests",
+                "experiments": {
+                    "rampUpRules": []
+                },
+                "autoHealEnabled": false,
+                "localMySqlEnabled": false,
+                "ipSecurityRestrictions": [
+                    {
+                        "ipAddress": "85.250.99.0/24",
+                        "action": "Allow",
+                        "tag": "Default",
+                        "priority": 300,
+                        "name": "test",
+                        "description": "Allow an ip"
+                    },
+                    {
+                        "ipAddress": "Any",
+                        "action": "Deny",
+                        "priority": 2147483647,
+                        "name": "Deny all",
+                        "description": "Deny all access"
+                    }
+                ],
+                "scmIpSecurityRestrictions": [
+                    {
+                        "ipAddress": "Any",
+                        "action": "Allow",
+                        "priority": 1,
+                        "name": "Allow all",
+                        "description": "Allow all access"
+                    }
+                ],
+                "scmIpSecurityRestrictionsUseMain": false,
+                "http20Enabled": false,
+                "minTlsVersion": "1.2",
+                "ftpsState": "AllAllowed",
+                "reservedInstanceCount": 0
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_securedevopstest_name'), '/0b9d663502d820714ba22729b370617479a79302')]",
+            "location": "Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_securedevopstest_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author_email": "yardenzuckerman@gmail.com",
+                "author": "Yarden",
+                "deployer": "GitHub",
+                "message": "Checking if the new cicd pipeline works",
+                "start_time": "2020-03-02T20:31:22.2950831Z",
+                "end_time": "2020-03-02T20:31:30.8258497Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_securedevopstest_name'), '/0c4ea5c6f2ae2273a41fd7d0f17bfa6dbaf4065f')]",
+            "location": "Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_securedevopstest_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author_email": "yardenzuckerman@gmail.com",
+                "author": "Yarden",
+                "deployer": "GitHub",
+                "message": "Re-added SSL with active param",
+                "start_time": "2020-03-03T07:20:08.0686685Z",
+                "end_time": "2020-03-03T07:20:16.1999966Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_securedevopstest_name'), '/15616ff41a8e70555f2cc98f2ebc9eb25546e939')]",
+            "location": "Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_securedevopstest_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author_email": "yardenzuckerman@gmail.com",
+                "author": "Yarden",
+                "deployer": "GitHub",
+                "message": "Re-added SSL with active param V2",
+                "start_time": "2020-03-03T07:20:56.6045471Z",
+                "end_time": "2020-03-03T07:21:04.1097258Z",
+                "active": true
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_securedevopstest_name'), '/b2a16e4861d8a0d33be54504bdc7318d78e05cc3')]",
+            "location": "Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_securedevopstest_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author_email": "yardenzuckerman@gmail.com",
+                "author": "Yarden",
+                "deployer": "GitHub",
+                "message": "updated index.html with a few more text lines",
+                "start_time": "2020-03-02T20:29:09.6501337Z",
+                "end_time": "2020-03-02T20:29:19.0924517Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_securedevopstest_name'), '/cc0e2b147b215cbf44a72cdd221f1238468abd75')]",
+            "location": "Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_securedevopstest_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author_email": "yardenzuckerman@gmail.com",
+                "author": "Yarden",
+                "deployer": "GitHub",
+                "message": "Added check for ssl verification",
+                "start_time": "2020-03-03T07:12:31.5071001Z",
+                "end_time": "2020-03-03T07:12:39.8254421Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/hostNameBindings",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_securedevopstest_name'), '/', parameters('sites_securedevopstest_name'), '.azurewebsites.net')]",
+            "location": "Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_securedevopstest_name'))]"
+            ],
+            "properties": {
+                "siteName": "securedevopstest",
+                "hostNameType": "Verified"
+            }
+        }
+    ]
+}

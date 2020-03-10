@@ -1,0 +1,12 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "frontdoors_frontdoorwar_name": {
+            "value": null
+        },
+        "frontdoorwebapplicationfirewallpolicies_frontdoorwar63b31c594df640d9975d3ac4bb32649e_externalid": {
+            "value": null
+        }
+    }
+}

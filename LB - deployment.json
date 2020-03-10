@@ -1,0 +1,72 @@
+{
+  "id": "/subscriptions/3287673a-55e5-4ad9-b710-99b355ee2725/resourceGroups/securecicddeploytest/providers/Microsoft.Resources/deployments/Microsoft.LoadBalancer-20200303095639",
+  "name": "Microsoft.LoadBalancer-20200303095639",
+  "type": "Microsoft.Resources/deployments",
+  "tags": {
+    "primaryResourceId": "/subscriptions/3287673a-55e5-4ad9-b710-99b355ee2725/resourcegroups/securecicddeploytest/providers/Microsoft.Network/loadBalancers/devopstestLB",
+    "marketplaceItemId": "Microsoft.LoadBalancer"
+  },
+  "properties": {
+    "templateHash": "7568883999758823621",
+    "parameters": {
+      "name": {
+        "type": "String",
+        "value": "devopstestLB"
+      },
+      "location": {
+        "type": "String",
+        "value": "centralus"
+      },
+      "sku": {
+        "type": "String",
+        "value": "Basic"
+      },
+      "publicIPAddressName": {
+        "type": "String",
+        "value": "cicdLBtest"
+      }
+    },
+    "mode": "Incremental",
+    "debugSetting": {
+      "detailLevel": "None"
+    },
+    "provisioningState": "Accepted",
+    "timestamp": "2020-03-03T07:59:39.0106686Z",
+    "duration": "PT1.6734725S",
+    "correlationId": "821547b4-773e-47ea-9c1f-d344527c0cfc",
+    "providers": [
+      {
+        "namespace": "Microsoft.Network",
+        "resourceTypes": [
+          {
+            "resourceType": "loadBalancers",
+            "locations": [
+              "centralus"
+            ]
+          },
+          {
+            "resourceType": "publicIPAddresses",
+            "locations": [
+              "centralus"
+            ]
+          }
+        ]
+      }
+    ],
+    "dependencies": [
+      {
+        "dependsOn": [
+          {
+            "id": "/subscriptions/3287673a-55e5-4ad9-b710-99b355ee2725/resourceGroups/securecicddeploytest/providers/Microsoft.Network/publicIPAddresses/cicdLBtest",
+            "resourceType": "Microsoft.Network/publicIPAddresses",
+            "resourceName": "cicdLBtest"
+          }
+        ],
+        "id": "/subscriptions/3287673a-55e5-4ad9-b710-99b355ee2725/resourceGroups/securecicddeploytest/providers/Microsoft.Network/loadBalancers/devopstestLB",
+        "resourceType": "Microsoft.Network/loadBalancers",
+        "resourceName": "devopstestLB"
+      }
+    ],
+    "validationLevel": "Template"
+  }
+}
